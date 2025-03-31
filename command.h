@@ -10,7 +10,8 @@ typedef enum {
     CMD_INSERT,
     CMD_DELETE,
     CMD_SEARCH,
-    CMD_PRINT
+    CMD_PRINT,
+    CMD_OTHER
 } command_type_t;
 
 // Command structure to hold parsed command data
@@ -27,9 +28,10 @@ typedef struct {
 } thread_arg_t;
 
 // Function declarations
-command_t parse_command_line(char *line);
-command_t* read_commands(const char *filename, int *num_commands);
-void* command_worker(void *arg);
+extern command_t parse_command_line(char *line);
+extern command_t* read_commands(const char *filename, int *num_commands);
+extern void* command_worker(void *arg);
+extern int parse_commands(const char* filename, command_t** commands);
 
 #endif /* COMMANDS_H */
 
