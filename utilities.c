@@ -1,7 +1,10 @@
 #include <stdlib.h>
 #include <string.h>
+// #include <sys/time.h> // for UNIX
+#include <sys/timeb.h>
 #include "utilities.h"
 
+// function extracting letters from text file
 char *getLetters(FILE *fp, int n)
 {
     char *plain = malloc(sizeof(char) * 10000 + 1);
@@ -31,16 +34,17 @@ char *getLetters(FILE *fp, int n)
 }
 
 // function prints out given plain/ciphertext according to criteria
-void printText(char *s)
+void printText(char *s, FILE *op)
 {
     for (int i = 0; i < strlen(s); i++)
     {
         if ((i % 80 == 0) && i != 0)
             printf("\n");
-        fprintf(stdout, "%c", s[i]);
+        fprintf(op, "%c", s[i]);
     }
 }
 
+// function returning # of characters in text file
 int getFileSize(FILE *fp)
 {
     int sz = 0;
@@ -49,20 +53,18 @@ int getFileSize(FILE *fp)
     rewind(fp);
     return sz;
 }
-
-uint32_t jenkins_one_at_a_time_hash(const uint8_t *key, size_t length)
+// function returning the current time in microseconds
+long long getTime()
 {
-    size_t i = 0;
-    uint32_t hash = 0;
-    while (i != length)
-    {
-        hash += key[i++];
-        hash += hash << 10;
-        hash ^= hash >> 6;
-    }
-    hash += hash << 3;
-    hash ^= hash >> 11;
-    hash += hash << 15;
-    return hash;
+    struct timeb tb;
+    ftime(&tb);
+    return (long long) tb.time * 1000LL + (tb.millitm);
 }
 
+// INCLUDE sys/time.h when testing on Eustis
+// long long getTime()
+// {
+//     struct timeval tv;
+//     assert(gettimeofday(&tv,NULL) != 0);
+//     return tv.tv_sec * 1000000 + tv.tv_usec;
+// }
