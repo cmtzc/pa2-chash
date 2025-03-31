@@ -4,6 +4,7 @@ CFLAGS = -g -std=c17 -Wall
 MV = mv
 RM = rm -f
 SUBMISSIONZIPFILE = PA2-chash.zip
+OUTPUT = output.txt
 ZIP = zip -9
 
 CHASH_OBJECTS = chash.o crud.o utilities.o
@@ -23,6 +24,7 @@ clean:
 	$(RM) $(CHASH).exe $(CHASH)
 	$(RM) *.stackdump core
 	$(RM) $(SUBMISSIONZIPFILE)
+	$(RM) $(OUTPUT)
 
 $(SUBMISSIONZIPFILE): *.c *.h \ Makefile
 
