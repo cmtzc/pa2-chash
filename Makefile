@@ -11,7 +11,7 @@ CHASH_OBJECTS = chash.o crud.o utilities.o
 .PRECIOUS: $(CHASH)
 
 $(CHASH): $(CHASH_OBJECTS)
-	$(CC) $(CFLAGS) -o $(CHASH) $(CHASH_OBJECTS) -mconsole
+	$(CC) $(CFLAGS) -o $(CHASH) $(CHASH_OBJECTS)
 
 # rule for compiling individual .c files
 %.o: %.c %.h
