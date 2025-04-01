@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdint.h>
+#include "command.h"
 
 // function reads in file and extracts the lowercase letters (converting if necessary)
 extern char *getLetters(FILE *fp, int n);
@@ -12,4 +12,7 @@ extern int getFileSize(FILE *fp);
 
 // function returning the current time in microseconds
 extern long long getTime();
+
+// function outputs commands to text file
+extern void output_commands(FILE *op, command_t *commands, size_t n);
 
