@@ -1,13 +1,13 @@
 CHASH = chash
 CC = gcc
-CFLAGS = -g -std=c17 -Wall
+CFLAGS = -g -std=gnu99 -Wall
 MV = mv
 RM = rm -f
 SUBMISSIONZIPFILE = PA2-chash.zip
 OUTPUT = output.txt
 ZIP = zip -9
 
-CHASH_OBJECTS = chash.o crud.o utilities.o
+CHASH_OBJECTS = utilities.o crud.o command.o chash.o
 
 .PRECIOUS: $(CHASH)
 
