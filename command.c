@@ -151,7 +151,7 @@ void execute_command(hashTable *ht, command_t *cmd) {
             
             if (record != NULL) {
                 // Print the found record
-                fprintf(ht->output_file, "%u,%s,%u\n", record->hash, record->name, record->salary);
+                fprintf(ht->output_file, "%lld: %u,%s,%u\n", get_timestamp(), record->hash, record->name, record->salary);
             } else {
                 // Record not found
                 fprintf(ht->output_file, "%lld: SEARCH: NOT FOUND\n", get_timestamp());
