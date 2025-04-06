@@ -11,7 +11,7 @@ extern void printText(char *s, FILE *op);
 extern int getFileSize(FILE *fp);
 
 // function returning the current time in microseconds
-extern long long getTime();
+extern long long get_timestamp();
 
 // function outputs commands to text file
 extern void output_commands(FILE *op, command_t *commands, size_t n);

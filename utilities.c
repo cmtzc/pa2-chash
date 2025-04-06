@@ -63,34 +63,37 @@ int getFileSize(FILE *fp)
 // }
 
 // INCLUDE sys/time.h when testing on Unix
-long long getTime()
+long long get_timestamp()
 {
-    struct timeval tv;
-    assert(gettimeofday(&tv,NULL) == 0);
-    return tv.tv_sec * 1000000 + tv.tv_usec;
+    struct timeval te;
+    gettimeofday(&te, NULL);                                     // get current time
+    long long microseconds = (te.tv_sec * 1000000) + te.tv_usec; // calculate milliseconds
+    return microseconds;
 }
 
 void output_commands(FILE *op, command_t *commands, size_t n)
 {
-    for (int i = 0; i < n; i++) {
-        switch (commands[i].type) {
-            case CMD_INSERT:
-                fprintf(op, "%lld: INSERT, %s, %u\n",getTime(), commands[i].name, commands[i].value);
-                break;
-            case CMD_DELETE:
-                fprintf(op, "%lld: DELETE, %s\n",getTime(), commands[i].name);
-                break;
-            case CMD_SEARCH:
-                fprintf(op, "%lld: SEARCH, %s\n", getTime(), commands[i].name);
-                break;
-            case CMD_PRINT:
-                fprintf(op, "%lld: PRINT\n", getTime());
-                break;
-            case CMD_THREADS:
-                fprintf(op, "%lld: THREADS, %u\n",getTime(), commands[i].value);
-                break;
-            default:
-                fprintf(op, "UNKNOWN COMMAND\n");
+    for (int i = 0; i < n; i++)
+    {
+        switch (commands[i].type)
+        {
+        case CMD_INSERT:
+            fprintf(op, "%lld: INSERT, %s, %u\n", get_timestamp(), commands[i].name, commands[i].value);
+            break;
+        case CMD_DELETE:
+            fprintf(op, "%lld: DELETE, %s\n", get_timestamp(), commands[i].name);
+            break;
+        case CMD_SEARCH:
+            fprintf(op, "%lld: SEARCH, %s\n", get_timestamp(), commands[i].name);
+            break;
+        case CMD_PRINT:
+            fprintf(op, "%lld: PRINT\n", get_timestamp());
+            break;
+        case CMD_THREADS:
+            fprintf(op, "%lld: THREADS, %u\n", get_timestamp(), commands[i].value);
+            break;
+        default:
+            fprintf(op, "UNKNOWN COMMAND\n");
         }
         fflush(op);
         // sleep(1);
