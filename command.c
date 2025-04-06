@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <pthread.h>
+#include "utilities.h"
 
 // Helper function to trim whitespace from a string
 static char* trim(char* str) {
@@ -131,7 +133,44 @@ int parse_commands(const char* filename, command_t** commands) {
     return count;
 }
 
-// Function to free allocated commands
-void free_commands(command_t* commands) {
-    free(commands);
+// Function to execute a command on a hash table
+void execute_command(hashTable *ht, command_t *cmd) {
+    switch (cmd->type) {
+        case CMD_INSERT:
+            insert(ht, cmd->name, cmd->value);
+            break;
+        case CMD_DELETE:
+            delete(ht, cmd->name);
+            break;
+        case CMD_SEARCH: {
+            // Log the search operation
+            fprintf(ht->output_file, "%lld: SEARCH,%s\n", get_timestamp(), cmd->name);
+            
+            // Perform the search
+            hashRecord *record = search(ht, cmd->name);
+            
+            if (record != NULL) {
+                // Print the found record
+                fprintf(ht->output_file, "%u,%s,%u\n", record->hash, record->name, record->salary);
+            } else {
+                // Record not found
+                fprintf(ht->output_file, "%lld: SEARCH: NOT FOUND\n", get_timestamp());
+            }
+            break;
+        }
+        case CMD_PRINT:
+            print_table(ht);
+            break;
+        default:
+            // Unknown command or THREADS command already handled
+            break;
+    }
+}
+
+// Thread worker function
+void* command_worker(void *arg) {
+    thread_arg_t *thread_arg = (thread_arg_t*)arg;
+    execute_command(thread_arg->table, &thread_arg->cmd);
+    free(thread_arg);
+    return NULL;
 }
