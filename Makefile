@@ -7,7 +7,7 @@ SUBMISSIONZIPFILE = PA2-chash.zip
 OUTPUT = output.txt
 ZIP = zip -9
 
-CHASH_OBJECTS = utilities.o crud.o command.o chash.o
+CHASH_OBJECTS = utilities.o crud.o command.o chash.o rwlock.o
 
 .PRECIOUS: $(CHASH)
 
