@@ -26,5 +26,9 @@ clean:
 	$(RM) $(SUBMISSIONZIPFILE)
 	$(RM) $(OUTPUT)
 
+.PHONY: run
+run: $(CHASH)
+	./$(CHASH)
+
 $(SUBMISSIONZIPFILE): *.c *.h \ Makefile
 
