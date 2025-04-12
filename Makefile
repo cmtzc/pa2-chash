@@ -30,5 +30,5 @@ clean:
 run: $(CHASH)
 	./$(CHASH)
 
-$(SUBMISSIONZIPFILE): *.c *.h \ Makefile
-
+$(SUBMISSIONZIPFILE):
+	$(ZIP) $(SUBMISSIONZIPFILE) *.c *.h Makefile 
