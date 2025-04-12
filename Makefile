@@ -31,4 +31,4 @@ run: $(CHASH)
 	./$(CHASH)
 
 $(SUBMISSIONZIPFILE):
-	$(ZIP) $(SUBMISSIONZIPFILE) *.c *.h Makefile 
+	$(ZIP) $(SUBMISSIONZIPFILE) *.c *.h Makefile README.txt
